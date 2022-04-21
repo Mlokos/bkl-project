@@ -1,6 +1,9 @@
 # bkl-project
 Project for 'Kompetencje w zmieniającym się społeczeństwie'
 
+## Requirements
+- python `3.8.*`
+
 ## Setup
 ```console
 sudo apt install python3-pip
