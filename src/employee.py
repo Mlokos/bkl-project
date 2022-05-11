@@ -5,14 +5,15 @@ from pyreadstat._readstat_parser import metadata_container
 
 
 def get_job_title_generalized(
-    job_title: float, generalization: int, specialization: Optional[int]
-) -> float:
+    job_title: int, prefix: Optional[int], depth: Optional[int]
+) -> int:
     str_value = str(job_title)
 
-    jobs_range = (
-        generalization + len(str(specialization)) if specialization else generalization
-    )
-    return float(str_value[:jobs_range])
+    jobs_range = depth + len(str(prefix)) if prefix else depth
+    if jobs_range > len(str_value):
+        return int(str_value)
+    else:
+        return int(str_value[:jobs_range])
 
 
 def get_competencies_list() -> List[str]:
@@ -25,20 +26,20 @@ def get_competencies_list() -> List[str]:
 def get_job_title_to_competencies(
     df: DataFrame,
     df_meta: metadata_container,
-    generalization: int,
-    specialization: Optional[int],
+    prefix: Optional[int],
+    depth: Optional[int],
 ) -> DataFrame:
     df = df.dropna(subset=["e10_isco"], axis=0)
 
-    if specialization:
+    if prefix:
         employees_with_specialization_mask = [
-            str(x).startswith(str(specialization)) for x in df["e10_isco"]
+            str(x).startswith(str(prefix)) for x in df["e10_isco"]
         ]
         df = df[employees_with_specialization_mask]
 
     df = df.assign(
         e10_isco_generalized=df["e10_isco"].apply(
-            lambda x: get_job_title_generalized(x, generalization, specialization)
+            lambda x: get_job_title_generalized(int(x), prefix, depth)
         )
     )
     df = df.groupby("e10_isco_generalized").mean()
