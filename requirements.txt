@@ -3,3 +3,4 @@ pandas
 pyreadstat
 matplotlib
 seaborn
+black
