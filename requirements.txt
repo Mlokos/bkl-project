@@ -4,3 +4,6 @@ pyreadstat
 matplotlib
 seaborn
 black
+numpy
+scikit-learn
+# ipython
