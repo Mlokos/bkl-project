@@ -2,6 +2,7 @@ from typing import List, Optional
 from pandas import DataFrame
 from src.utilities import SavAdapter
 from pyreadstat._readstat_parser import metadata_container
+import matplotlib.pyplot as plt
 
 
 def get_job_title_generalized(
@@ -100,3 +101,10 @@ def get_job_title_to_competencies_boss(
     job_title_to_competencies = job_title_to_competencies.set_index("e10_isco_name")
 
     return job_title_to_competencies
+
+
+def show_competencies(df: DataFrame) -> None:
+    plt.imshow(df, cmap="RdYlGn")
+    plt.colorbar()
+    plt.yticks(range(len(df)), df.index)
+    plt.show()
