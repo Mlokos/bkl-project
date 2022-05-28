@@ -43,7 +43,7 @@ def generalize_competencies(
     sad = SavAdapter(metadata=df_meta)
     df = df.assign(
         e10_isco_name=df["job_title_generalized"].apply(
-            lambda x: sad.get_value_name("e10_isco", x)
+            lambda isco_code: "{} ({})".format(sad.get_value_name("e10_isco", isco_code), isco_code)
         )
     )
 
