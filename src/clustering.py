@@ -47,7 +47,7 @@ def show_clusters(df: DataFrame) -> None:
     for cluster in df.cluster_type.unique():
         job_title_group = df[df.cluster_type == cluster]
         del job_title_group["cluster_type"]
-        plt.imshow(job_title_group, cmap="RdYlGn")
+        plt.imshow(job_title_group, cmap="RdYlGn", vmin=1, vmax=5)
         plt.colorbar()
         plt.yticks(range(len(job_title_group)), job_title_group.index)
         plt.show()

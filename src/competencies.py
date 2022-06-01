@@ -43,7 +43,9 @@ def generalize_competencies(
     sad = SavAdapter(metadata=df_meta)
     df = df.assign(
         e10_isco_name=df["job_title_generalized"].apply(
-            lambda isco_code: "{} ({})".format(sad.get_value_name("e10_isco", isco_code), isco_code)
+            lambda isco_code: "{} ({})".format(
+                sad.get_value_name("e10_isco", isco_code), isco_code
+            )
         )
     )
 
@@ -104,7 +106,7 @@ def get_job_title_to_competencies_boss(
 
 
 def show_competencies(df: DataFrame) -> None:
-    plt.imshow(df, cmap="RdYlGn")
+    plt.imshow(df, cmap="RdYlGn", vmin=1, vmax=5)
     plt.colorbar()
     plt.yticks(range(len(df)), df.index)
     plt.show()
